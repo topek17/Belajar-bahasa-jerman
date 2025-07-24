@@ -2,58 +2,112 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Kuis Bahasa Jerman</title>
+  <title>Kuis Ich / Mich / Mir</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body { font-family: sans-serif; padding: 20px; }
-    .question { margin-bottom: 15px; }
-    button { margin-top: 10px; }
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      background: #f5f5f5;
+    }
+    h1 {
+      text-align: center;
+    }
+    .question {
+      margin-bottom: 20px;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .options {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .options label {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .options input {
+      display: none;
+    }
+    .options input:checked + span {
+      background-color: #a5d6a7;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background: #2196f3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+    #result {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
-  <h1>Kuis: Ich, Mich, Mir</h1>
-  <div id="quiz"></div>
-  <button onclick="checkAnswers()">Cek Jawaban</button>
-  <p id="result"></p>
+
+  <h1>Kuis: Ich / Mich / Mir</h1>
+
+  <form id="quizForm">
+    <div class="question">
+      <p>1. ___ bin 16 Jahre alt.</p>
+      <div class="options">
+        <label><input type="radio" name="q0" value="ich"><span>ich</span></label>
+        <label><input type="radio" name="q0" value="mich"><span>mich</span></label>
+        <label><input type="radio" name="q0" value="mir"><span>mir</span></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>2. Er ruft ___ an.</p>
+      <div class="options">
+        <label><input type="radio" name="q1" value="ich"><span>ich</span></label>
+        <label><input type="radio" name="q1" value="mich"><span>mich</span></label>
+        <label><input type="radio" name="q1" value="mir"><span>mir</span></label>
+      </div>
+    </div>
+
+    <div class="question">
+      <p>3. Kannst du ___ helfen?</p>
+      <div class="options">
+        <label><input type="radio" name="q2" value="ich"><span>ich</span></label>
+        <label><input type="radio" name="q2" value="mich"><span>mich</span></label>
+        <label><input type="radio" name="q2" value="mir"><span>mir</span></label>
+      </div>
+    </div>
+
+    <button type="button" onclick="checkAnswers()">Cek Jawaban</button>
+  </form>
+
+  <div id="result"></div>
 
   <script>
-    const questions = [
-      {
-        question: "___ bin müde.",
-        options: ["Ich", "Mich", "Mir"],
-        answer: "Ich"
-      },
-      {
-        question: "Kannst du ___ helfen?",
-        options: ["Ich", "Mich", "Mir"],
-        answer: "Mir"
-      },
-      {
-        question: "Er sieht ___ nicht.",
-        options: ["Ich", "Mich", "Mir"],
-        answer: "Mich"
-      }
-    ];
-
-    const quizDiv = document.getElementById("quiz");
-    questions.forEach((q, i) => {
-      const div = document.createElement("div");
-      div.className = "question";
-      div.innerHTML = `<p>${i+1}. ${q.question}</p>` +
-        q.options.map(opt =>
-          `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label><br>`
-        ).join("");
-      quizDiv.appendChild(div);
-    });
+    const correctAnswers = ["ich", "mich", "mir"];
 
     function checkAnswers() {
       let score = 0;
-      questions.forEach((q, i) => {
+      correctAnswers.forEach((ans, i) => {
         const selected = document.querySelector(`input[name="q${i}"]:checked`);
-        if (selected && selected.value === q.answer) score++;
+        if (selected && selected.value === ans) score++;
       });
       document.getElementById("result").innerText =
-        `Kamu benar ${score} dari ${questions.length} soal.`;
+        `Kamu menjawab benar ${score} dari ${correctAnswers.length} soal.`;
     }
   </script>
+
 </body>
 </html>
