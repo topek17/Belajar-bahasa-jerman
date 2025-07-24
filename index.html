@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Kuis Bahasa Jerman</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .question { margin-bottom: 15px; }
+    button { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Kuis: Ich, Mich, Mir</h1>
+  <div id="quiz"></div>
+  <button onclick="checkAnswers()">Cek Jawaban</button>
+  <p id="result"></p>
+
+  <script>
+    const questions = [
+      {
+        question: "___ bin müde.",
+        options: ["Ich", "Mich", "Mir"],
+        answer: "Ich"
+      },
+      {
+        question: "Kannst du ___ helfen?",
+        options: ["Ich", "Mich", "Mir"],
+        answer: "Mir"
+      },
+      {
+        question: "Er sieht ___ nicht.",
+        options: ["Ich", "Mich", "Mir"],
+        answer: "Mich"
+      }
+    ];
+
+    const quizDiv = document.getElementById("quiz");
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<p>${i+1}. ${q.question}</p>` +
+        q.options.map(opt =>
+          `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label><br>`
+        ).join("");
+      quizDiv.appendChild(div);
+    });
+
+    function checkAnswers() {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected && selected.value === q.answer) score++;
+      });
+      document.getElementById("result").innerText =
+        `Kamu benar ${score} dari ${questions.length} soal.`;
+    }
+  </script>
+</body>
+</html>
